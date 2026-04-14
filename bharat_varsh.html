@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHARAT VARSH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & ROOT ─────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ── THEME DEFINITIONS ──────────────────────────── */
+:root{
+  --bg:#1C140E;--bg2:#241A11;--bg3:#2E2015;--bg4:#3A2A1A;
+  --border:#4A3520;--border2:#5E4430;
+  --saffron:#E8720C;--saffron2:#C25B00;--saffron-dim:#7A3800;--saffron-glow:rgba(232,114,12,0.12);
+  --gold:#C8900A;--gold-dim:#5E3E00;
+  --indigo:#5B8FD4;--indigo-dim:#1A3060;
+  --teal:#3BAE8A;--teal-dim:#0C3D2B;
+  --crimson:#B83A3A;--crimson-dim:#4A1515;
+  --ivory:#F2E8D0;--text:#F2E8D0;--text2:#C8A87A;--text3:#7A5C3A;
+  --mono:'JetBrains Mono',monospace;--display:'Cinzel',serif;--body:'Cormorant Garamond',Georgia,serif;
+}
+
+/* Mughal Blue */
+[data-theme="mughal"]{
+  --bg:#0A0E1A;--bg2:#0F1525;--bg3:#141C30;--bg4:#1A2540;
+  --border:#1E2E50;--border2:#2A3F6A;
+  --saffron:#6BA3E8;--saffron2:#4A7FC4;--saffron-dim:#1A3060;--saffron-glow:rgba(107,163,232,0.12);
+  --gold:#E8C96A;--gold-dim:#5A4A10;
+  --indigo:#B46AE8;--indigo-dim:#3A1060;
+  --teal:#6AE8C9;--teal-dim:#0C3D30;
+  --crimson:#E86A6A;--crimson-dim:#4A1515;
+  --ivory:#D0E0F2;--text:#D0E0F2;--text2:#7AA8C8;--text3:#3A5A7A;
+}
+
+/* Lotus Pink / Rajput */
+[data-theme="rajput"]{
+  --bg:#1A0A10;--bg2:#250F18;--bg3:#301520;--bg4:#3D1D2A;
+  --border:#501828;--border2:#6A2035;
+  --saffron:#E86AA0;--saffron2:#C44A80;--saffron-dim:#700030;--saffron-glow:rgba(232,106,160,0.12);
+  --gold:#E8C06A;--gold-dim:#5A4010;
+  --indigo:#9B6AE8;--indigo-dim:#301060;
+  --teal:#6AE8A8;--teal-dim:#0C3D25;
+  --crimson:#E8706A;--crimson-dim:#4A1515;
+  --ivory:#F2D8E2;--text:#F2D8E2;--text2:#C87A9A;--text3:#7A3A5A;
+}
+
+/* Forest / Vedic Green */
+[data-theme="vedic"]{
+  --bg:#0A150A;--bg2:#0F1E0F;--bg3:#142614;--bg4:#1A301A;
+  --border:#1E401E;--border2:#2A552A;
+  --saffron:#8AE870;--saffron2:#60C848;--saffron-dim:#205015;--saffron-glow:rgba(138,232,112,0.12);
+  --gold:#E8D870;--gold-dim:#504A10;
+  --indigo:#70B8E8;--indigo-dim:#102040;
+  --teal:#70E8C8;--teal-dim:#0C3D30;
+  --crimson:#E86A6A;--crimson-dim:#4A1515;
+  --ivory:#D8F2D0;--text:#D8F2D0;--text2:#88A878;--text3:#3A5A3A;
+}
+
+/* Ivory Daylight */
+[data-theme="ivory"]{
+  --bg:#F5EFE0;--bg2:#EDE4CE;--bg3:#E4D8B8;--bg4:#D8C898;
+  --border:#C8B070;--border2:#A88840;
+  --saffron:#C05A00;--saffron2:#A04800;--saffron-dim:#D8B070;--saffron-glow:rgba(192,90,0,0.10);
+  --gold:#806000;--gold-dim:#D8C080;
+  --indigo:#304888;--indigo-dim:#B0BCD8;
+  --teal:#206848;--teal-dim:#A8D8B8;
+  --crimson:#983030;--crimson-dim:#E8B8B8;
+  --ivory:#2A1A0A;--text:#2A1A0A;--text2:#5A3A10;--text3:#8A6A40;
+}
+
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;transition:background 0.4s,color 0.4s}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ── LAYOUT ───────────────────────────────────── */
+.app{display:flex;min-height:100vh}
+.sidebar{width:235px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:0 0 2rem;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background 0.4s}
+.content-area{flex:1;display:flex;min-width:0}
+.main{flex:1;overflow-y:auto;min-width:0}
+.page{display:none;padding:2.5rem 2.5rem 4rem;max-width:860px;animation:fadein 0.3s ease}
+.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LOGO ─────────────────────────────────────── */
+.logo{padding:0 0 1.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.logo-svg-wrap{display:flex;justify-content:center;padding:1rem 1rem 0.4rem;background:linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 100%)}
+.logo-svg-wrap svg{width:100%;max-width:195px;height:auto;display:block}
+.logo-mark{font-family:var(--display);font-size:0.58rem;letter-spacing:0.22em;color:var(--saffron);text-transform:uppercase;text-align:center;padding:0.5rem 1.5rem 0}
+.logo h1{font-family:var(--display);font-size:1.0rem;font-weight:500;color:var(--ivory);line-height:1.3;text-align:center;padding:0.1rem 1.5rem 0}
+.logo-sub{font-size:0.76rem;color:var(--text3);font-style:italic;text-align:center;padding:0.2rem 1.5rem 0}
+
+/* ── THEME SWITCHER ───────────────────────────── */
+.theme-switcher{padding:0.8rem 1.2rem;border-bottom:1px solid var(--border)}
+.theme-label{font-family:var(--display);font-size:0.54rem;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase;margin-bottom:0.5rem}
+.theme-dots{display:flex;gap:7px;flex-wrap:wrap}
+.theme-dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.2s;position:relative}
+.theme-dot:hover{transform:scale(1.15)}
+.theme-dot.active{border-color:var(--ivory);box-shadow:0 0 0 2px var(--saffron)}
+.theme-dot[data-t="default"]{background:radial-gradient(circle,#E8720C,#1C140E)}
+.theme-dot[data-t="mughal"]{background:radial-gradient(circle,#6BA3E8,#0A0E1A)}
+.theme-dot[data-t="rajput"]{background:radial-gradient(circle,#E86AA0,#1A0A10)}
+.theme-dot[data-t="vedic"]{background:radial-gradient(circle,#8AE870,#0A150A)}
+.theme-dot[data-t="ivory"]{background:radial-gradient(circle,#C05A00,#F5EFE0)}
+
+/* ── NAV ──────────────────────────────────────── */
+.nav{padding:1.2rem 0;flex:1}
+.nav-group{margin-bottom:1.2rem}
+.nav-group-label{font-family:var(--display);font-size:0.56rem;letter-spacing:0.22em;color:var(--text3);text-transform:uppercase;padding:0 1.5rem;margin-bottom:0.4rem}
+.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:0.5rem 1.5rem;background:none;border:none;color:var(--text2);font-family:var(--body);font-size:0.93rem;cursor:pointer;text-align:left;transition:all 0.2s;position:relative;font-style:italic}
+.nav-btn .nav-icon{font-size:0.88rem;width:18px;text-align:center;flex-shrink:0}
+.nav-btn:hover{color:var(--ivory);background:rgba(232,114,12,0.07)}
+.nav-btn.active{color:var(--saffron);background:var(--saffron-glow)}
+.nav-btn.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--saffron)}
+
+.sidebar-footer{padding:1rem 1.5rem 0;border-top:1px solid var(--border);font-size:0.7rem;color:var(--text3);font-style:italic;line-height:1.7}
+
+/* ── COMMON COMPONENTS ───────────────────────── */
+.page-header{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.page-header .eyebrow{font-family:var(--display);font-size:0.62rem;letter-spacing:0.2em;color:var(--saffron);text-transform:uppercase;margin-bottom:0.6rem}
+.page-header h2{font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ivory);line-height:1.2}
+.page-header p{font-size:1rem;color:var(--text2);margin-top:0.5rem;font-style:italic}
+.section-label{font-family:var(--display);font-size:0.62rem;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase;margin-bottom:0.8rem;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;transition:background 0.4s,border-color 0.4s}
+.card-gold{border-color:var(--gold-dim);background:var(--bg)}
+.card-indigo{border-color:var(--indigo-dim);background:var(--bg)}
+.card-teal{border-color:var(--teal-dim);background:var(--bg)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.field{margin-bottom:0}
+.field label{display:block;font-family:var(--display);font-size:0.62rem;letter-spacing:0.15em;color:var(--text3);text-transform:uppercase;margin-bottom:0.4rem}
+.inp{width:100%;padding:0.55rem 0.9rem;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--ivory);font-family:var(--body);font-size:1.05rem;outline:none;transition:border-color 0.2s,background 0.2s}
+.inp:focus{border-color:var(--saffron);background:var(--bg4)}
+.inp::placeholder{color:var(--text3)}
+.inp-mono{font-family:var(--mono);font-size:0.9rem}
+.btn{font-family:var(--display);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.6rem 1.4rem;background:var(--saffron);color:var(--bg);border:none;border-radius:6px;cursor:pointer;transition:background 0.2s}
+.btn:hover{background:var(--gold)}
+.btn-ghost{background:transparent;color:var(--saffron);border:1px solid var(--saffron-dim)}
+.btn-ghost:hover{background:var(--saffron-glow);color:var(--ivory)}
+.btn-sm{padding:0.4rem 1rem;font-size:0.6rem}
+.bit-row{display:flex;gap:6px;flex-wrap:wrap;margin:0.7rem 0}
+.bit-w{display:flex;flex-direction:column;align-items:center;gap:3px}
+.bit{width:42px;height:42px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem;font-weight:500;transition:all 0.25s}
+.b1{background:var(--saffron);color:var(--bg);box-shadow:0 0 12px rgba(232,114,12,0.25)}
+.b0{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
+.bit-lbl{font-size:0.58rem;color:var(--text3);font-family:var(--mono)}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.pc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.3rem;position:relative;overflow:hidden;transition:border-color 0.3s}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0}
+.pc-tithi::before{background:var(--saffron)}
+.pc-karana::before{background:var(--gold)}
+.pc-nk::before{background:var(--indigo)}
+.pc-yoga::before{background:var(--teal)}
+.pc-lbl{font-family:var(--display);font-size:0.58rem;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase;margin-bottom:0.3rem}
+.pc-name{font-size:1.1rem;color:var(--text2);font-style:italic;margin-bottom:0.15rem}
+.pc-num{font-family:var(--display);font-size:1.8rem;font-weight:400;line-height:1}
+.pc-tithi .pc-num{color:var(--saffron)}
+.pc-karana .pc-num{color:var(--gold)}
+.pc-nk .pc-num{color:var(--indigo)}
+.pc-yoga .pc-num{color:var(--teal)}
+.pc-sub{font-size:0.82rem;color:var(--text3);margin-top:0.25rem;font-style:italic}
+.pc-bar{height:3px;background:var(--border);border-radius:2px;margin-top:0.8rem;overflow:hidden}
+.pc-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
+.pc-tithi .pc-fill{background:var(--saffron)}
+.pc-karana .pc-fill{background:var(--gold)}
+.pc-nk .pc-fill{background:var(--indigo)}
+.pc-yoga .pc-fill{background:var(--teal)}
+.trace{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.3rem;font-family:var(--mono);font-size:0.78rem;line-height:2;color:var(--text3)}
+.trace .hi{color:var(--saffron);font-weight:400}
+.trace .hib{color:var(--ivory);font-weight:400}
+.trace .hig{color:var(--teal)}
+.trace .sep{color:var(--border2)}
+.badge-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:0.7rem}
+.badge{font-family:var(--display);font-size:0.62rem;letter-spacing:0.04em;padding:4px 10px;border-radius:4px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);cursor:default}
+.badge.nk-on{background:var(--indigo-dim);color:var(--indigo);border-color:var(--indigo-dim)}
+.badge.yg-on{background:var(--teal-dim);color:var(--teal);border-color:var(--teal-dim)}
+.planet-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.planet-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.3rem}
+.planet-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.planet-icon{font-size:1.4rem}
+.planet-title{font-family:var(--display);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase}
+.planet-moon .planet-title{color:var(--indigo)}
+.planet-sun .planet-title{color:var(--saffron)}
+.dials{display:flex;justify-content:center;gap:3rem;padding:1.2rem 0 0.5rem;margin-bottom:0.5rem}
+.dial-wrap{text-align:center}
+.dial{width:90px;height:90px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);position:relative;margin:0 auto 0.4rem}
+.dial-ring{position:absolute;inset:4px;border-radius:50%;border:1px dashed var(--border2)}
+.dial-hand{position:absolute;bottom:50%;left:50%;width:2px;transform-origin:50% 100%;border-radius:2px;transform:translateX(-50%) rotate(0deg);transition:transform 0.5s ease}
+.dial-moon .dial-hand{height:34px;background:var(--indigo);box-shadow:0 0 6px rgba(91,143,212,0.4)}
+.dial-sun .dial-hand{height:34px;background:var(--saffron);box-shadow:0 0 6px rgba(232,114,12,0.4)}
+.dial-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.dial-moon .dial-dot{background:var(--indigo)}
+.dial-sun .dial-dot{background:var(--saffron)}
+.dial-lbl{font-family:var(--display);font-size:0.6rem;letter-spacing:0.12em;color:var(--text3);text-transform:uppercase}
+.verify{background:var(--teal-dim);border:1px solid var(--teal-dim);border-radius:7px;padding:0.7rem 1rem;margin-top:0.8rem;font-family:var(--mono);font-size:0.78rem;color:var(--teal)}
+.verify.fail{background:rgba(184,58,58,0.1);border-color:var(--crimson-dim);color:var(--crimson)}
+.hist-list{list-style:none}
+.hist-item{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:0.6rem 0;border-bottom:1px solid var(--border)}
+.hist-item:last-child{border-bottom:none}
+.hist-tag{font-family:var(--display);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;flex-shrink:0}
+.tag-nasta{background:rgba(232,114,12,0.15);color:var(--saffron)}
+.tag-uddhista{background:rgba(200,144,10,0.15);color:var(--gold)}
+.tag-panchanga{background:rgba(59,174,138,0.15);color:var(--teal)}
+.hist-detail{font-size:0.88rem;color:var(--text2);flex:1;font-family:var(--mono);font-size:0.78rem}
+.hist-time{font-size:0.75rem;color:var(--text3);flex-shrink:0;font-family:var(--mono)}
+.theory-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem}
+.theory-card h3{font-family:var(--display);font-size:1rem;font-weight:500;color:var(--saffron);margin-bottom:0.8rem}
+.theory-card p{font-size:1.05rem;color:var(--text2);line-height:1.8;margin-bottom:0.7rem}
+.theory-grid{display:grid;gap:0.7rem;margin-top:0.8rem}
+.theory-row{display:flex;gap:1rem;padding:0.7rem 1rem;background:var(--bg3);border-radius:7px;border:1px solid var(--border);align-items:flex-start}
+.theory-key{font-family:var(--display);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--saffron);min-width:90px;flex-shrink:0;padding-top:0.2rem}
+.theory-val{font-size:0.95rem;color:var(--text2);line-height:1.6}
+.note{font-size:0.88rem;color:var(--text3);font-style:italic;line-height:1.6;margin-bottom:0.8rem}
+.divider{height:1px;background:var(--border);margin:1.5rem 0}
+.err-msg{color:#E87070;font-size:0.85rem;font-style:italic;margin-top:0.5rem;display:none}
+
+/* ── GAMES PAGE ───────────────────────────────── */
+.games-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+.game-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.game-card:hover{border-color:var(--saffron);background:var(--bg3);transform:translateY(-2px)}
+.game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;background:var(--saffron);opacity:0;transition:opacity 0.2s}
+.game-card:hover::before{opacity:1}
+.gc-icon{font-size:2.2rem;margin-bottom:0.7rem}
+.gc-title{font-family:var(--display);font-size:0.9rem;color:var(--ivory);margin-bottom:0.3rem}
+.gc-desc{font-size:0.85rem;color:var(--text3);font-style:italic;line-height:1.5}
+.gc-badge{position:absolute;top:1rem;right:1rem;font-family:var(--display);font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 7px;border-radius:3px;background:var(--saffron-glow);color:var(--saffron);border:1px solid var(--saffron-dim)}
+
+/* ── GAME CONTAINER ───────────────────────────── */
+.game-container{display:none}
+.game-container.active{display:block}
+.game-back-btn{font-family:var(--display);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.45rem 1rem;background:transparent;color:var(--text3);border:1px solid var(--border);border-radius:5px;cursor:pointer;margin-bottom:1.5rem;transition:all 0.2s}
+.game-back-btn:hover{color:var(--saffron);border-color:var(--saffron-dim)}
+
+/* GAME: ASHTA CHAMMA (dice-style) */
+#g-ashta canvas{border:1px solid var(--border);border-radius:8px;background:var(--bg3)}
+/* GAME: WORD SCRAMBLE */
+.wscram-letters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:1.2rem 0}
+.wscram-tile{width:44px;height:44px;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.2rem;color:var(--saffron);cursor:pointer;transition:all 0.15s;user-select:none}
+.wscram-tile:hover{background:var(--saffron-glow);border-color:var(--saffron)}
+.wscram-tile.selected{background:var(--saffron);color:var(--bg);border-color:var(--saffron)}
+.wscram-answer{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0.8rem 0;min-height:52px;border:1px dashed var(--border2);border-radius:8px;padding:0.5rem;align-items:center}
+.wscram-slot{width:44px;height:44px;background:var(--bg4);border:1px solid var(--border2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.2rem;color:var(--ivory)}
+
+/* GAME: TIMELINE */
+.timeline-q{font-size:1.1rem;color:var(--text2);font-style:italic;text-align:center;margin:1rem 0;min-height:2.5rem}
+.timeline-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.t-opt{padding:0.7rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:var(--display);font-size:0.75rem;letter-spacing:0.05em;color:var(--text2);transition:all 0.2s;text-align:center}
+.t-opt:hover:not(.disabled){border-color:var(--saffron);color:var(--saffron)}
+.t-opt.correct{background:var(--teal-dim);border-color:var(--teal);color:var(--teal)}
+.t-opt.wrong{background:var(--crimson-dim);border-color:var(--crimson);color:var(--crimson)}
+.t-opt.disabled{cursor:default;opacity:0.7}
+
+/* GAME: MATCH PAIRS */
+.pairs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:480px;margin:1rem auto}
+.pair-card{height:70px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--text2);transition:all 0.2s;text-align:center;padding:0.3rem;font-family:var(--body);font-style:italic}
+.pair-card:hover:not(.flipped):not(.matched){border-color:var(--saffron);background:var(--saffron-glow)}
+.pair-card.flipped{background:var(--bg4);border-color:var(--gold);color:var(--gold)}
+.pair-card.matched{background:var(--teal-dim);border-color:var(--teal);color:var(--teal);cursor:default}
+
+/* GAME: NOUGHT & CROSS (strategic) */
+.ttt-board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:1rem auto}
+.ttt-cell{height:80px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:2rem;transition:all 0.2s}
+.ttt-cell:hover:not(.taken){background:var(--saffron-glow);border-color:var(--saffron)}
+.ttt-cell.taken{cursor:default}
+.ttt-x{color:var(--saffron)}
+.ttt-o{color:var(--indigo)}
+
+/* GAME SCORE BANNER */
+.game-score-row{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+.score-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1rem;text-align:center}
+.score-box-label{font-family:var(--display);font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3)}
+.score-box-val{font-family:var(--display);font-size:1.5rem;color:var(--saffron);line-height:1.2}
+.game-status{font-family:var(--display);font-size:0.75rem;letter-spacing:0.1em;color:var(--teal);text-align:center;margin:0.6rem 0;min-height:1.2rem}
+.game-status.fail{color:var(--crimson)}
+
+/* ── CREDITS PAGE ─────────────────────────────── */
+.credits-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1rem}
+.credit-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.6rem;position:relative;overflow:hidden;transition:all 0.3s}
+.credit-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.3s;background:radial-gradient(circle at 30% 50%, var(--saffron-glow), transparent 70%)}
+.credit-card:hover::before{opacity:1}
+.credit-num{font-family:var(--display);font-size:3rem;font-weight:300;color:var(--border2);line-height:1;margin-bottom:0.5rem;position:relative}
+.credit-role{font-family:var(--display);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.3rem}
+.credit-name{font-family:var(--display);font-size:1.1rem;color:var(--ivory);font-weight:500}
+.credit-desc{font-size:0.88rem;color:var(--text3);font-style:italic;margin-top:0.4rem;line-height:1.5}
+.credit-leader{border-color:var(--saffron-dim)}
+.credit-leader .credit-num{color:var(--saffron-dim)}
+.credit-ornament{font-size:2rem;position:absolute;bottom:1rem;right:1.2rem;opacity:0.12}
+
+/* ── PROJECT BANNER ───────────────────────────── */
+.project-banner{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;margin-bottom:1.5rem;text-align:center}
+.project-banner h3{font-family:var(--display);font-size:1.2rem;color:var(--ivory);margin-bottom:0.4rem}
+.project-banner p{font-size:0.9rem;color:var(--text3);font-style:italic}
+.project-banner .banner-subtitle{font-family:var(--display);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.6rem}
+
+@media(max-width:700px){.sidebar{display:none}.page{padding:1.5rem 1rem 3rem}.p-grid,.planet-inputs,.row2,.row3,.games-grid,.credits-grid,.pairs-grid,.timeline-opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="logo">
+      <div class="logo-svg-wrap">
+        <!-- NEW LOGO: Nataraja / Cosmic Dancer in a flame ring with temple pillar motifs -->
+        <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <!-- Outer flame-ring / prabhamandala -->
+          <ellipse cx="100" cy="50" rx="46" ry="46" stroke="#5E4430" stroke-width="0.8" stroke-dasharray="3 2"/>
+          <!-- Flame petals around ring -->
+          <g fill="#E8720C" fill-opacity="0.18">
+            <ellipse cx="100" cy="6" rx="4" ry="8" transform="rotate(0 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(30 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(60 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(90 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(120 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(150 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(180 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(210 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(240 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(270 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(300 100 50)"/>
+            <ellipse cx="100" cy="6" rx="3.5" ry="7" transform="rotate(330 100 50)"/>
+          </g>
+          <!-- Inner ring -->
+          <circle cx="100" cy="50" r="36" stroke="#C8900A" stroke-width="0.7"/>
+          <!-- Simplified Nataraja figure -->
+          <!-- Body -->
+          <line x1="100" y1="35" x2="100" y2="57" stroke="#E8720C" stroke-width="2" stroke-linecap="round"/>
+          <!-- Head -->
+          <circle cx="100" cy="31" r="5.5" stroke="#E8720C" stroke-width="1.2"/>
+          <!-- Crown / Jata -->
+          <path d="M96 26 Q100 20 104 26" stroke="#C8900A" stroke-width="1" stroke-linecap="round" fill="none"/>
+          <line x1="100" y1="20" x2="100" y2="23" stroke="#C8900A" stroke-width="1"/>
+          <!-- Upper right arm (raised) -->
+          <line x1="100" y1="40" x2="113" y2="33" stroke="#E8720C" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Damaru drum (small circle) -->
+          <circle cx="115" cy="31" r="3" stroke="#C8900A" stroke-width="1"/>
+          <!-- Upper left arm (raised left) -->
+          <line x1="100" y1="40" x2="87" y2="33" stroke="#E8720C" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Hand gesture (abhaya) -->
+          <line x1="87" y1="33" x2="84" y2="28" stroke="#E8720C" stroke-width="1" stroke-linecap="round"/>
+          <!-- Lower right arm -->
+          <line x1="100" y1="48" x2="110" y2="52" stroke="#E8720C" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Lower left arm -->
+          <line x1="100" y1="48" x2="89" y2="54" stroke="#E8720C" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Standing leg -->
+          <line x1="100" y1="57" x2="97" y2="68" stroke="#E8720C" stroke-width="2" stroke-linecap="round"/>
+          <!-- Raised leg (Ananda Tandava) -->
+          <path d="M100 57 Q107 62 108 55 Q111 50 106 48" stroke="#E8720C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <!-- Apasmara (dwarf) at base -->
+          <ellipse cx="97" cy="70" rx="6" ry="3" fill="#5E4430"/>
+          <!-- Temple pillar motifs — left -->
+          <line x1="48" y1="10" x2="48" y2="90" stroke="#4A3520" stroke-width="1"/>
+          <rect x="44" y="10" width="8" height="4" rx="1" fill="#4A3520"/>
+          <rect x="44" y="86" width="8" height="4" rx="1" fill="#4A3520"/>
+          <rect x="45" y="30" width="6" height="2" rx="1" fill="#3A2810"/>
+          <rect x="45" y="50" width="6" height="2" rx="1" fill="#3A2810"/>
+          <rect x="45" y="70" width="6" height="2" rx="1" fill="#3A2810"/>
+          <!-- Temple pillar motifs — right -->
+          <line x1="152" y1="10" x2="152" y2="90" stroke="#4A3520" stroke-width="1"/>
+          <rect x="148" y="10" width="8" height="4" rx="1" fill="#4A3520"/>
+          <rect x="148" y="86" width="8" height="4" rx="1" fill="#4A3520"/>
+          <rect x="149" y="30" width="6" height="2" rx="1" fill="#3A2810"/>
+          <rect x="149" y="50" width="6" height="2" rx="1" fill="#3A2810"/>
+          <rect x="149" y="70" width="6" height="2" rx="1" fill="#3A2810"/>
+          <!-- Om symbol -->
+          <text x="100" y="95" text-anchor="middle" font-size="7" fill="#C8900A" fill-opacity="0.5" font-family="serif">ॐ</text>
+          <!-- Corner lotus dots -->
+          <circle cx="15" cy="15" r="2" fill="#C8900A" fill-opacity="0.4"/>
+          <circle cx="185" cy="15" r="2" fill="#C8900A" fill-opacity="0.4"/>
+          <circle cx="15" cy="85" r="2" fill="#C8900A" fill-opacity="0.4"/>
+          <circle cx="185" cy="85" r="2" fill="#C8900A" fill-opacity="0.4"/>
+          <!-- Top horizontal chain -->
+          <path d="M18 15 Q30 10 48 10" stroke="#4A3520" stroke-width="0.6"/>
+          <path d="M152 10 Q170 10 182 15" stroke="#4A3520" stroke-width="0.6"/>
+          <path d="M18 85 Q30 90 48 90" stroke="#4A3520" stroke-width="0.6"/>
+          <path d="M152 90 Q170 90 182 85" stroke="#4A3520" stroke-width="0.6"/>
+        </svg>
+      </div>
+      <div class="logo-mark">Vedic Science</div>
+      <h1>Bharat Varsh</h1>
+      <div class="logo-sub">Binary &amp; Panchanga · ~300 BCE</div>
+    </div>
+
+    <!-- THEME SWITCHER -->
+    <div class="theme-switcher">
+      <div class="theme-label">Theme</div>
+      <div class="theme-dots">
+        <div class="theme-dot active" data-t="default" onclick="setTheme('default',this)" title="Sandstone (default)"></div>
+        <div class="theme-dot" data-t="mughal" onclick="setTheme('mughal',this)" title="Mughal Blue"></div>
+        <div class="theme-dot" data-t="rajput" onclick="setTheme('rajput',this)" title="Rajput Rose"></div>
+        <div class="theme-dot" data-t="vedic" onclick="setTheme('vedic',this)" title="Vedic Forest"></div>
+        <div class="theme-dot" data-t="ivory" onclick="setTheme('ivory',this)" title="Ivory Daylight"></div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-group">
+        <div class="nav-group-label">Binary System</div>
+        <button class="nav-btn active" onclick="showPage('nasta')">
+          <span class="nav-icon">➀</span> Nasta — Encode
+        </button>
+        <button class="nav-btn" onclick="showPage('uddhista')">
+          <span class="nav-icon">➁</span> Uddhista — Decode
+        </button>
+        <button class="nav-btn" onclick="showPage('convert')">
+          <span class="nav-icon">⇄</span> Binary ↔ Decimal
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Calendar Science</div>
+        <button class="nav-btn" onclick="showPage('panchanga')">
+          <span class="nav-icon">☽</span> Panchanga
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Games</div>
+        <button class="nav-btn" onclick="showPage('games')">
+          <span class="nav-icon">♟</span> Ancient Games
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Reference</div>
+        <button class="nav-btn" onclick="showPage('history')">
+          <span class="nav-icon">✦</span> History & Theory
+        </button>
+        <button class="nav-btn" onclick="showPage('log')">
+          <span class="nav-icon">≡</span> Calculation Log
+        </button>
+        <button class="nav-btn" onclick="showPage('credits')">
+          <span class="nav-icon">✿</span> Credits
+        </button>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      Pingala's Chandashāstra<br>
+      &amp; traditional Panchanga<br>
+      methods faithfully implemented
+    </div>
+  </nav>
+
+  <div class="content-area">
+  <div class="main">
+
+    <!-- ══ NASTA ══════════════════════════════════ -->
+    <div id="page-nasta" class="page active">
+      <div class="page-header">
+        <div class="eyebrow">Binary System · Pingala Method</div>
+        <h2>Nasta — Decimal to Binary</h2>
+        <p>Encode any decimal number into Pingala's ancient binary sequence using the Chandashāstra halving algorithm.</p>
+      </div>
+      <div class="section-label">Input</div>
+      <div class="card">
+        <div class="note">If n is even → append 1, n = n÷2 · If n is odd → append 0, n = (n+1)÷2 · Repeat for each position</div>
+        <div class="row2" style="gap:1rem;margin-bottom:1rem">
+          <div class="field"><label>Number to encode</label><input class="inp" type="number" id="nn" value="" placeholder="e.g. 13" min="0"></div>
+          <div class="field"><label>Sequence length</label><input class="inp" type="number" id="nl" value="" placeholder="e.g. 6" min="1" max="20"></div>
+        </div>
+        <button class="btn" onclick="nastaCalc()">Compute Sequence</button>
+      </div>
+      <div id="nasta-out" style="display:none">
+        <div class="section-label">Pingala Sequence</div>
+        <div class="card card-gold">
+          <div class="note" style="margin-bottom:0.3rem">Built left → right using the Nasta algorithm</div>
+          <div class="bit-row" id="np-bits"></div>
+          <div class="divider" style="margin:1rem 0"></div>
+          <div class="note" style="margin-bottom:0.3rem">Modern binary — reversed (MSB first)</div>
+          <div class="bit-row" id="nm-bits"></div>
+        </div>
+        <div class="section-label">Step-by-step Trace</div>
+        <div class="trace" id="n-trace"></div>
+        <div style="margin-top:1rem;padding:0.8rem 1.2rem;background:var(--saffron-glow);border:1px solid var(--saffron-dim);border-radius:8px;font-size:0.88rem;color:var(--text2)">
+          → Copy the Pingala sequence and paste it into <button class="btn btn-ghost btn-sm" style="margin-left:6px" onclick="showPage('uddhista')">Uddhista →</button> to verify round-trip
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ UDDHISTA ═══════════════════════════════ -->
+    <div id="page-uddhista" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Binary System · Pingala Method</div>
+        <h2>Uddhista — Binary to Decimal</h2>
+        <p>Decode a Pingala sequence back to its decimal number. The inverse of Nasta.</p>
+      </div>
+      <div class="section-label">Input</div>
+      <div class="card">
+        <div class="field">
+          <label>Pingala sequence — space or comma separated</label>
+          <input class="inp inp-mono" type="text" id="ud-in" placeholder="e.g.  1  0  1  1  0  1">
+        </div>
+        <div class="err-msg" id="ud-err">Please enter only 0s and 1s, separated by spaces or commas.</div>
+        <button class="btn" style="margin-top:0.8rem" onclick="uddCalc()">Decode</button>
+      </div>
+      <div id="ud-out" style="display:none">
+        <div class="section-label">Decoding Result</div>
+        <div class="card card-gold">
+          <div class="note" style="margin-bottom:0.4rem">Entered sequence (as-is)</div>
+          <div class="bit-row" id="ud-bits-in"></div>
+          <div class="divider" style="margin:0.8rem 0"></div>
+          <div class="note" style="margin-bottom:0.4rem">After reversing [::-1] → modern binary order (MSB first)</div>
+          <div class="bit-row" id="ud-bits-rev"></div>
+          <div class="divider" style="margin:0.8rem 0"></div>
+          <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:baseline">
+            <div>
+              <div class="note" style="margin-bottom:0.1rem">Binary value (before +1)</div>
+              <div style="font-family:var(--mono);font-size:1.3rem;color:var(--text2)" id="ud-raw">—</div>
+            </div>
+            <div>
+              <div class="note" style="margin-bottom:0.1rem">Decoded decimal (+1 offset)</div>
+              <div style="font-family:var(--display);font-size:2.4rem;color:var(--saffron);font-weight:300" id="ud-final">—</div>
+            </div>
+          </div>
+          <div id="ud-verify" class="verify" style="margin-top:1rem"></div>
+        </div>
+        <div class="section-label">Step-by-step Trace</div>
+        <div class="trace" id="ud-trace"></div>
+      </div>
+    </div>
+
+    <!-- ══ CONVERT ════════════════════════════════ -->
+    <div id="page-convert" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Binary System</div>
+        <h2>Binary ↔ Decimal</h2>
+        <p>Standard modern binary conversion using positional place values (powers of 2). Edit either field and press Convert.</p>
+      </div>
+      <div class="section-label">Converter</div>
+      <div class="card">
+        <div class="row2" style="gap:1rem;margin-bottom:1rem">
+          <div class="field"><label>Binary string</label><input class="inp inp-mono" type="text" id="cv-bin" placeholder="e.g. 1101"></div>
+          <div class="field"><label>Decimal number</label><input class="inp" type="number" id="cv-dec" placeholder="e.g. 13" min="0"></div>
+        </div>
+        <div style="display:flex;gap:0.7rem">
+          <button class="btn" onclick="cvBin()">Binary → Decimal</button>
+          <button class="btn btn-ghost" onclick="cvDec()">Decimal → Binary</button>
+        </div>
+      </div>
+      <div id="cv-out" style="display:none">
+        <div class="section-label">Visual Representation</div>
+        <div class="card card-indigo">
+          <div class="bit-row" id="cv-bits"></div>
+          <div id="cv-place" style="font-family:var(--mono);font-size:0.82rem;color:var(--text3);margin-top:0.3rem;word-break:break-all"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PANCHANGA ══════════════════════════════ -->
+    <div id="page-panchanga" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Ancient Calendar Science</div>
+        <h2>Panchanga — Five Limbs</h2>
+        <p>Enter the celestial longitudes of the Moon and Sun, then press Compute.</p>
+      </div>
+      <div class="section-label">Celestial Positions</div>
+      <div class="planet-inputs">
+        <div class="planet-box planet-moon">
+          <div class="planet-head"><span class="planet-icon">☽</span><span class="planet-title">Moon Longitude</span></div>
+          <div class="row2" style="gap:0.8rem">
+            <div class="field"><label>Degrees °</label><input class="inp" type="number" id="d1" placeholder="0" min="0" max="359"></div>
+            <div class="field"><label>Minutes ′</label><input class="inp" type="number" id="m1" placeholder="0" min="0" max="59"></div>
+          </div>
+        </div>
+        <div class="planet-box planet-sun">
+          <div class="planet-head"><span class="planet-icon">☀</span><span class="planet-title">Sun Longitude</span></div>
+          <div class="row2" style="gap:0.8rem">
+            <div class="field"><label>Degrees °</label><input class="inp" type="number" id="d2" placeholder="0" min="0" max="359"></div>
+            <div class="field"><label>Minutes ′</label><input class="inp" type="number" id="m2" placeholder="0" min="0" max="59"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn" onclick="panCalc()" style="margin-bottom:1.5rem">Compute Panchanga</button>
+
+      <div id="pan-out" style="display:none">
+        <div class="dials">
+          <div class="dial-wrap">
+            <div class="dial dial-moon"><div class="dial-ring"></div><div class="dial-hand" id="moon-hand"></div><div class="dial-dot"></div></div>
+            <div class="dial-lbl">☽ Moon</div>
+          </div>
+          <div class="dial-wrap">
+            <div class="dial dial-sun"><div class="dial-ring"></div><div class="dial-hand" id="sun-hand"></div><div class="dial-dot"></div></div>
+            <div class="dial-lbl">☀ Sun</div>
+          </div>
+        </div>
+        <div class="section-label">Results</div>
+        <div class="p-grid">
+          <div class="pc pc-tithi">
+            <div class="pc-lbl">Tithi · 12° arc</div>
+            <div class="pc-name" id="ti-name"></div>
+            <div class="pc-num" id="ti-val"></div>
+            <div class="pc-sub" id="ti-sub"></div>
+            <div class="pc-bar"><div class="pc-fill" id="ti-bar"></div></div>
+          </div>
+          <div class="pc pc-karana">
+            <div class="pc-lbl">Karana · 6° arc</div>
+            <div class="pc-name" id="ka-name"></div>
+            <div class="pc-num" id="ka-val"></div>
+            <div class="pc-sub" id="ka-sub"></div>
+            <div class="pc-bar"><div class="pc-fill" id="ka-bar"></div></div>
+          </div>
+          <div class="pc pc-nk">
+            <div class="pc-lbl">Nakshatra · 800′</div>
+            <div class="pc-name" id="na-name"></div>
+            <div class="pc-num" id="na-val"></div>
+            <div class="pc-sub" id="na-sub"></div>
+            <div class="pc-bar"><div class="pc-fill" id="na-bar"></div></div>
+          </div>
+          <div class="pc pc-yoga">
+            <div class="pc-lbl">Yoga · sum ÷ 800′</div>
+            <div class="pc-name" id="yo-name"></div>
+            <div class="pc-num" id="yo-val"></div>
+            <div class="pc-sub" id="yo-sub"></div>
+            <div class="pc-bar"><div class="pc-fill" id="yo-bar"></div></div>
+          </div>
+        </div>
+        <div class="section-label">Calculation Trace</div>
+        <div class="trace" id="pan-trace"></div>
+        <div class="section-label" style="margin-top:1.4rem">Nakshatra Sequence</div>
+        <div class="badge-list" id="nk-list"></div>
+        <div class="section-label" style="margin-top:1.2rem">Yoga Sequence</div>
+        <div class="badge-list" id="yg-list"></div>
+      </div>
+    </div>
+
+    <!-- ══ GAMES ══════════════════════════════════ -->
+    <div id="page-games" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Ancient India · Interactive</div>
+        <h2>Ancient Indian Games</h2>
+        <p>Five playable games inspired by ancient Indian history, mythology and mathematics.</p>
+      </div>
+
+      <!-- GAME SELECTION GRID -->
+      <div id="games-select">
+        <div class="games-grid">
+          <div class="game-card" onclick="openGame('timeline')">
+            <div class="gc-icon">🏛️</div>
+            <div class="gc-title">Timeline Challenge</div>
+            <div class="gc-desc">Place key events of ancient India in their correct chronological order. How well do you know Indian history?</div>
+            <div class="gc-badge">Quiz</div>
+          </div>
+          <div class="game-card" onclick="openGame('scramble')">
+            <div class="gc-icon">🔤</div>
+            <div class="gc-title">Sanskrit Scramble</div>
+            <div class="gc-desc">Unscramble the names of ancient Indian cities, scholars and concepts. Race against the clock!</div>
+            <div class="gc-badge">Word</div>
+          </div>
+          <div class="game-card" onclick="openGame('pairs')">
+            <div class="gc-icon">🎴</div>
+            <div class="gc-title">Rāja Pairs</div>
+            <div class="gc-desc">Match each great king or queen to their empire or dynasty. A memory game of ancient rulers.</div>
+            <div class="gc-badge">Memory</div>
+          </div>
+          <div class="game-card" onclick="openGame('ttt')">
+            <div class="gc-icon">♟️</div>
+            <div class="gc-title">Bagh-Chal Strategy</div>
+            <div class="gc-desc">A strategic Noughts & Crosses variant. Play as the Tiger (☯) — you vs the ancient AI of the forest.</div>
+            <div class="gc-badge">Strategy</div>
+          </div>
+          <div class="game-card" onclick="openGame('binary')">
+            <div class="gc-icon">⚙️</div>
+            <div class="gc-title">Pingala's Binary Drill</div>
+            <div class="gc-desc">Rapid-fire Pingala encoding challenges. Convert the given number to binary before time runs out!</div>
+            <div class="gc-badge">Math</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GAME: TIMELINE ── -->
+      <div id="game-timeline" class="game-container">
+        <button class="game-back-btn" onclick="closeGame()">← Back to Games</button>
+        <div class="page-header" style="margin-bottom:1.2rem">
+          <div class="eyebrow">Game · Quiz</div>
+          <h2>Timeline Challenge</h2>
+          <p>Choose the correct century / era for each event.</p>
+        </div>
+        <div class="game-score-row">
+          <div class="score-box"><div class="score-box-label">Score</div><div class="score-box-val" id="tl-score">0</div></div>
+          <div class="score-box"><div class="score-box-label">Question</div><div class="score-box-val" id="tl-qnum">1 / 10</div></div>
+          <div class="score-box"><div class="score-box-label">Best</div><div class="score-box-val" id="tl-best">—</div></div>
+        </div>
+        <div class="card">
+          <div class="timeline-q" id="tl-question">Loading…</div>
+          <div class="timeline-opts" id="tl-opts"></div>
+          <div class="game-status" id="tl-status"></div>
+        </div>
+        <div style="text-align:center;margin-top:0.5rem">
+          <button class="btn" onclick="tlInit()">New Game</button>
+        </div>
+      </div>
+
+      <!-- ── GAME: SCRAMBLE ── -->
+      <div id="game-scramble" class="game-container">
+        <button class="game-back-btn" onclick="closeGame()">← Back to Games</button>
+        <div class="page-header" style="margin-bottom:1.2rem">
+          <div class="eyebrow">Game · Word</div>
+          <h2>Sanskrit Scramble</h2>
+          <p>Tap letters to spell the correct word. Hint shown below.</p>
+        </div>
+        <div class="game-score-row">
+          <div class="score-box"><div class="score-box-label">Score</div><div class="score-box-val" id="sc-score">0</div></div>
+          <div class="score-box"><div class="score-box-label">Round</div><div class="score-box-val" id="sc-round">1</div></div>
+          <div class="score-box"><div class="score-box-label">Best</div><div class="score-box-val" id="sc-best">—</div></div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--display);font-size:0.62rem;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase;margin-bottom:0.3rem">Hint</div>
+          <div style="font-size:1rem;color:var(--text2);font-style:italic;margin-bottom:0.8rem" id="sc-hint">—</div>
+          <div class="wscram-answer" id="sc-answer"></div>
+          <div class="wscram-letters" id="sc-letters"></div>
+          <div class="game-status" id="sc-status"></div>
+          <div style="display:flex;gap:0.6rem;margin-top:0.6rem">
+            <button class="btn btn-ghost btn-sm" onclick="scClear()">Clear</button>
+            <button class="btn btn-sm" onclick="scCheck()">Submit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GAME: PAIRS ── -->
+      <div id="game-pairs" class="game-container">
+        <button class="game-back-btn" onclick="closeGame()">← Back to Games</button>
+        <div class="page-header" style="margin-bottom:1.2rem">
+          <div class="eyebrow">Game · Memory</div>
+          <h2>Rāja Pairs</h2>
+          <p>Find matching ruler ↔ dynasty pairs. Click two cards to flip them.</p>
+        </div>
+        <div class="game-score-row">
+          <div class="score-box"><div class="score-box-label">Moves</div><div class="score-box-val" id="pr-moves">0</div></div>
+          <div class="score-box"><div class="score-box-label">Pairs</div><div class="score-box-val" id="pr-pairs">0 / 8</div></div>
+          <div class="score-box"><div class="score-box-label">Best</div><div class="score-box-val" id="pr-best">—</div></div>
+        </div>
+        <div class="pairs-grid" id="pr-grid"></div>
+        <div class="game-status" id="pr-status"></div>
+        <div style="text-align:center"><button class="btn" onclick="prInit()">New Game</button></div>
+      </div>
+
+      <!-- ── GAME: TTT (Bagh Chal) ── -->
+      <div id="game-ttt" class="game-container">
+        <button class="game-back-btn" onclick="closeGame()">← Back to Games</button>
+        <div class="page-header" style="margin-bottom:1.2rem">
+          <div class="eyebrow">Game · Strategy</div>
+          <h2>Bagh-Chal Strategy</h2>
+          <p>Classic Noughts & Crosses — you are ☯ (Tiger), AI is ☸ (Goat). Get three in a row!</p>
+        </div>
+        <div class="game-score-row">
+          <div class="score-box"><div class="score-box-label">You (☯)</div><div class="score-box-val" id="ttt-you">0</div></div>
+          <div class="score-box"><div class="score-box-label">AI (☸)</div><div class="score-box-val" id="ttt-ai">0</div></div>
+          <div class="score-box"><div class="score-box-label">Draws</div><div class="score-box-val" id="ttt-draw">0</div></div>
+        </div>
+        <div class="ttt-board" id="ttt-board"></div>
+        <div class="game-status" id="ttt-status"></div>
+        <div style="text-align:center;margin-top:0.8rem"><button class="btn" onclick="tttInit()">New Game</button></div>
+      </div>
+
+      <!-- ── GAME: BINARY DRILL ── -->
+      <div id="game-binary" class="game-container">
+        <button class="game-back-btn" onclick="closeGame()">← Back to Games</button>
+        <div class="page-header" style="margin-bottom:1.2rem">
+          <div class="eyebrow">Game · Mathematics</div>
+          <h2>Pingala's Binary Drill</h2>
+          <p>Convert the decimal to Pingala sequence (LSB first). Enter bits separated by spaces.</p>
+        </div>
+        <div class="game-score-row">
+          <div class="score-box"><div class="score-box-label">Score</div><div class="score-box-val" id="bd-score">0</div></div>
+          <div class="score-box"><div class="score-box-label">Round</div><div class="score-box-val" id="bd-round">1</div></div>
+          <div class="score-box"><div class="score-box-label">Best</div><div class="score-box-val" id="bd-best">—</div></div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--display);font-size:0.62rem;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase;margin-bottom:0.4rem">Encode this number</div>
+          <div style="font-family:var(--display);font-size:3.5rem;color:var(--saffron);line-height:1;margin-bottom:0.8rem" id="bd-num">—</div>
+          <div style="font-size:0.85rem;color:var(--text3);font-style:italic;margin-bottom:0.8rem" id="bd-length">Length: — bits</div>
+          <div class="field"><label>Your Pingala sequence (space-separated, LSB first)</label>
+            <input class="inp inp-mono" type="text" id="bd-inp" placeholder="e.g.  1  0  1  1  0  1">
+          </div>
+          <div class="game-status" id="bd-status"></div>
+          <div style="display:flex;gap:0.6rem;margin-top:0.8rem">
+            <button class="btn btn-sm" onclick="bdCheck()">Submit Answer</button>
+            <button class="btn btn-ghost btn-sm" onclick="bdSkip()">Skip</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-games -->
+
+    <!-- ══ HISTORY & THEORY ═══════════════════════ -->
+    <div id="page-history" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Reference</div>
+        <h2>History & Theory</h2>
+        <p>The mathematical foundations behind Pingala's binary system and the Panchanga calendar science.</p>
+      </div>
+      <div class="theory-card">
+        <h3>Pingala's Binary System (~300 BCE)</h3>
+        <p>Pingala, a Sanskrit prosodist, described a binary numeration in his <em>Chandashāstra</em> — the science of poetic meters. He encoded numbers using short (laghu, 0) and long (guru, 1) syllable patterns, predating Leibniz's binary system by roughly 2,000 years.</p>
+        <p>His two operations — Nasta (encoding) and Uddhista (decoding) — form a complete binary arithmetic system. The encoding differs from modern binary by being 1-indexed, so all decoded values are offset by +1.</p>
+        <div class="theory-grid">
+          <div class="theory-row"><div class="theory-key">Nasta</div><div class="theory-val">Decimal → Pingala sequence. If n is even append 1 and halve; if odd append 0 and halve (rounding up).</div></div>
+          <div class="theory-row"><div class="theory-key">Uddhista</div><div class="theory-val">Pingala sequence → Decimal. Reverse the sequence, decode as standard binary (MSB first), then add 1.</div></div>
+        </div>
+      </div>
+      <div class="theory-card">
+        <h3>Panchanga — Five Limbs of the Day</h3>
+        <p>Panchanga (पञ्चाङ्ग) is the traditional Hindu almanac. Each day is defined by five elements computed from the celestial longitudes of the Moon and Sun.</p>
+        <div class="theory-grid">
+          <div class="theory-row"><div class="theory-key" style="color:var(--saffron)">Tithi</div><div class="theory-val">Lunar day. Moon gains 12° on Sun per tithi. diff = moon−sun (mod 360°). Elapsed = ⌊diff÷12⌋, current = elapsed+1.</div></div>
+          <div class="theory-row"><div class="theory-key" style="color:var(--gold)">Karana</div><div class="theory-val">Half a tithi (6° arc). Elapsed = ⌊diff÷6⌋, current = elapsed+1.</div></div>
+          <div class="theory-row"><div class="theory-key" style="color:var(--indigo)">Nakshatra</div><div class="theory-val">Lunar mansion. Moon traverses 27 nakshatras of 800 arc-minutes each.</div></div>
+          <div class="theory-row"><div class="theory-key" style="color:var(--teal)">Yoga</div><div class="theory-val">Sum of moon and sun arc-minutes ÷ 800 (27 divisions).</div></div>
+          <div class="theory-row"><div class="theory-key">Vara</div><div class="theory-val">Day of the week — requires Julian Day Number; not computed here.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CALCULATION LOG ════════════════════════ -->
+    <div id="page-log" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Reference</div>
+        <h2>Calculation Log</h2>
+        <p>All calculations performed in this session, most recent first.</p>
+      </div>
+      <div class="section-label">Recent entries</div>
+      <div class="card">
+        <ul class="hist-list" id="hist-list">
+          <li class="hist-item"><span style="color:var(--text3);font-style:italic;font-size:0.9rem">No calculations yet — results will appear here as you use the tools.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ CREDITS ════════════════════════════════ -->
+    <div id="page-credits" class="page">
+      <div class="page-header">
+        <div class="eyebrow">Acknowledgements</div>
+        <h2>Credits</h2>
+        <p>The team behind Bharat Varsh — a tribute to ancient Indian mathematical tradition.</p>
+      </div>
+      <div class="project-banner">
+        <div class="banner-subtitle">Academic Project</div>
+        <h3>Bharat Varsh — Ancient Indian Science Toolkit</h3>
+        <p>Documenting Pingala's binary system & Panchanga calendar science, ~300 BCE</p>
+      </div>
+      <div class="section-label">Team Members</div>
+      <div class="credits-grid">
+        <div class="credit-card credit-leader">
+          <div class="credit-num">01</div>
+          <div class="credit-role">Project Leader</div>
+          <div class="credit-name">Sumedh Lokhande</div>
+          <div class="credit-desc">Conceptualisation, research direction, mathematical framework, and overall project coordination.</div>
+          <div class="credit-ornament">🪷</div>
+        </div>
+        <div class="credit-card">
+          <div class="credit-num">02</div>
+          <div class="credit-role">Backend Developer</div>
+          <div class="credit-name">Prajwal Kedari</div>
+          <div class="credit-desc">Algorithm implementation — Nasta/Uddhista encoding logic, Panchanga computation engine, and calculation pipeline.</div>
+          <div class="credit-ornament">⚙️</div>
+        </div>
+        <div class="credit-card">
+          <div class="credit-num">03</div>
+          <div class="credit-role">Frontend Developer</div>
+          <div class="credit-name">Vaishnavi Mehetre</div>
+          <div class="credit-desc">Interface design, CSS architecture, component system, animations, and the ancient Indian visual language.</div>
+          <div class="credit-ornament">🎨</div>
+        </div>
+        <div class="credit-card">
+          <div class="credit-num">04</div>
+          <div class="credit-role">Frontend Assistant</div>
+          <div class="credit-name">Niharika Shelke</div>
+          <div class="credit-desc">UI refinement, responsive layout, games interface, accessibility improvements, and visual testing.</div>
+          <div class="credit-ornament">✨</div>
+        </div>
+      </div>
+      <div class="section-label" style="margin-top:2rem">Inspiration</div>
+      <div class="theory-card">
+        <p>This project is dedicated to <strong style="color:var(--saffron)">Pingala</strong> (पिङ्गल), the ancient Sanskrit prosodist whose <em>Chandashāstra</em> (~300 BCE) described the world's first known binary numeration system — two millennia before Leibniz. It is also inspired by the timeless tradition of <strong style="color:var(--teal)">Jyotisha</strong>, the Vedanga of astronomy, which gave us the Panchanga almanac still used across India today.</p>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+  </div><!-- /content-area -->
+</div><!-- /app -->
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const NK=['Ashwini','Bharani','Krittika','Rohini','Mrigashira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishakha','Anuradha','Jyeshtha','Mula','Purva Ashadha','Uttara Ashadha','Shravana','Dhanishtha','Shatabhisha','Purva Bhadrapada','Uttara Bhadrapada','Revati'];
+const YG=['Vishkambha','Priti','Ayushman','Saubhagya','Shobhana','Atiganda','Sukarma','Dhriti','Shula','Ganda','Vriddhi','Dhruva','Vyaghata','Harshana','Vajra','Siddhi','Vyatipata','Variyan','Parigha','Shiva','Siddha','Sadhya','Shubha','Shukla','Brahma','Indra','Vaidhriti'];
+const TI=['Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashthi','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Purnima','Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashthi','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Amavasya'];
+const KA=['Kinstughna','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Bava','Balava','Kaulava','Taitila','Garija','Vanija','Vishti','Chatushpada','Naga'];
+
+let calcHistory=[];
+
+// ── THEME ─────────────────────────────────────────
+function setTheme(t,el){
+  document.documentElement.setAttribute('data-theme', t==='default'?'':t);
+  document.querySelectorAll('.theme-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── NAVIGATION ────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+id+"'")) b.classList.add('active');
+  });
+  if(id==='games'){closeGame();}
+}
+
+// ── HELPERS ───────────────────────────────────────
+function renderBits(id,arr,labels){
+  const c=document.getElementById(id); c.innerHTML='';
+  arr.forEach((v,i)=>{
+    const w=document.createElement('div'); w.className='bit-w';
+    const b=document.createElement('div'); b.className='bit '+(v?'b1':'b0'); b.textContent=v;
+    const l=document.createElement('div'); l.className='bit-lbl'; l.textContent=labels?labels[i]:(i+1);
+    w.appendChild(b); w.appendChild(l); c.appendChild(w);
+  });
+}
+function addHistory(type,detail){
+  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  calcHistory.unshift({type,detail,t});
+  if(calcHistory.length>30) calcHistory.pop();
+  const ul=document.getElementById('hist-list');
+  ul.innerHTML=calcHistory.map(h=>`
+    <li class="hist-item">
+      <span class="hist-tag tag-${h.type.toLowerCase()}">${h.type}</span>
+      <span class="hist-detail">${h.detail}</span>
+      <span class="hist-time">${h.t}</span>
+    </li>`).join('');
+}
+function setText(id,v){document.getElementById(id).textContent=v}
+function setBar(id,f){document.getElementById(id).style.width=Math.min(f*100,100)+'%'}
+
+// ── NASTA (compute on button only) ────────────────
+function nastaCalc(){
+  let n=parseInt(document.getElementById('nn').value);
+  let len=parseInt(document.getElementById('nl').value);
+  if(isNaN(n)||n<0||isNaN(len)||len<1){alert('Please enter a valid number and sequence length.');return;}
+  len=Math.min(len,20);
+  const orig=n, arr=[], steps=[];
+  for(let i=0;i<len;i++){
+    if(n%2===0){
+      arr.push(1);
+      steps.push(`<span class="hib">Step ${i+1}:</span> n=${n} <span class="hi">even</span>  → append <span class="hi">1</span>,  n = ${n}÷2 = ${Math.floor(n/2)}`);
+      n=Math.floor(n/2);
+    } else {
+      arr.push(0);
+      steps.push(`<span class="hib">Step ${i+1}:</span> n=${n} <span class="hig">odd</span>   → append <span class="hig">0</span>,  n = (${n}+1)÷2 = ${Math.floor((n+1)/2)}`);
+      n=Math.floor((n+1)/2);
+    }
+  }
+  const rev=[...arr].reverse();
+  renderBits('np-bits',arr);
+  renderBits('nm-bits',rev);
+  document.getElementById('n-trace').innerHTML=steps.map(s=>`<div>${s}</div>`).join('');
+  document.getElementById('nasta-out').style.display='block';
+  addHistory('Nasta',`${orig} → [${arr.join(', ')}]  (len=${len})`);
+}
+
+function nastaArr(n,len){
+  const a=[];
+  for(let i=0;i<len;i++){
+    if(n%2===0){a.push(1);n=Math.floor(n/2);}
+    else{a.push(0);n=Math.floor((n+1)/2);}
+  }
+  return a;
+}
+
+// ── UDDHISTA (compute on button only) ─────────────
+function uddCalc(){
+  const raw=document.getElementById('ud-in').value.trim();
+  const errEl=document.getElementById('ud-err');
+  errEl.style.display='none';
+  document.getElementById('ud-out').style.display='none';
+  if(!raw){alert('Please enter a Pingala sequence.');return;}
+  const tokens=raw.split(/[\s,]+/).filter(s=>s.length>0);
+  const binary=tokens.map(Number);
+  if(binary.some(v=>isNaN(v)||v<0||v>1)){errEl.style.display='block';return;}
+  if(!binary.length) return;
+  const rev=[...binary].reverse();
+  let result=0;
+  const steps=[];
+  for(let i=0;i<rev.length;i++){
+    const bit=rev[i];
+    const before=result;
+    result=result*2+bit;
+    steps.push(`<span class="hib">i=${i}, bit=${bit}:</span>  result = ${before}×2 + ${bit} = <span class="hi">${result}</span>`);
+  }
+  const final=result+1;
+  renderBits('ud-bits-in',binary);
+  renderBits('ud-bits-rev',rev);
+  document.getElementById('ud-raw').textContent=result;
+  document.getElementById('ud-final').textContent=final;
+  document.getElementById('ud-trace').innerHTML=steps.map(s=>`<div>${s}</div>`).join('');
+  const check=nastaArr(final,binary.length);
+  const match=JSON.stringify(check)===JSON.stringify(binary);
+  const vEl=document.getElementById('ud-verify');
+  vEl.className='verify'+(match?'':' fail');
+  vEl.textContent=match
+    ?`✓  Nasta(${final}, length=${binary.length}) → [${check.join(', ')}]  — round-trip confirmed`
+    :`Nasta(${final}, length=${binary.length}) → [${check.join(', ')}]  — check sequence length`;
+  document.getElementById('ud-out').style.display='block';
+  addHistory('Uddhista',`[${binary.join(', ')}] → ${final}`);
+}
+
+// ── CONVERT (button only) ─────────────────────────
+function cvBin(){
+  const s=document.getElementById('cv-bin').value.replace(/[^01]/g,'');
+  if(!s){document.getElementById('cv-out').style.display='none';return;}
+  document.getElementById('cv-dec').value=parseInt(s,2);
+  showCv(s.split('').map(Number));
+}
+function cvDec(){
+  const n=parseInt(document.getElementById('cv-dec').value);
+  if(isNaN(n)||n<0){document.getElementById('cv-out').style.display='none';return;}
+  const s=n.toString(2);
+  document.getElementById('cv-bin').value=s;
+  showCv(s.split('').map(Number));
+}
+function showCv(arr){
+  const places=arr.map((_,i)=>Math.pow(2,arr.length-1-i));
+  renderBits('cv-bits',arr,places.map(String));
+  const terms=arr.map((b,i)=>b?places[i]:null).filter(x=>x!==null);
+  document.getElementById('cv-place').textContent=(terms.length?terms.join(' + '):'0')+' = '+arr.reduce((a,b,i)=>a+b*places[i],0);
+  document.getElementById('cv-out').style.display='block';
+}
+
+// ── PANCHANGA (compute on button only) ────────────
+function panCalc(){
+  const d1=parseInt(document.getElementById('d1').value)||0;
+  const m1=parseInt(document.getElementById('m1').value)||0;
+  const d2=parseInt(document.getElementById('d2').value)||0;
+  const m2=parseInt(document.getElementById('m2').value)||0;
+
+  const degree1=d1+m1/60, minutes1=d1*60+m1;
+  const degree2=d2+m2/60, minutes2=d2*60+m2;
+
+  document.getElementById('moon-hand').style.transform=`translateX(-50%) rotate(${degree1}deg)`;
+  document.getElementById('sun-hand').style.transform=`translateX(-50%) rotate(${degree2}deg)`;
+
+  let diff, diffExpr;
+  if(degree2>degree1){diff=360+degree1-degree2;diffExpr=`360 + ${degree1.toFixed(4)} - ${degree2.toFixed(4)}`;}
+  else{diff=degree1-degree2;diffExpr=`${degree1.toFixed(4)} - ${degree2.toFixed(4)}`;}
+
+  const t=Math.floor(diff/12), tCur=t+1, tHrs=(tCur*708/30).toFixed(2), tDays=(tCur*708/30/24).toFixed(2);
+  const k=Math.floor(diff/6), kCur=k+1, kHrs=(kCur*708/60).toFixed(2);
+  const n=Math.floor(minutes1/800), nCur=n+1;
+  let y;
+  if(minutes2>minutes1){y=Math.floor((minutes1+minutes2-21600)/800);}
+  else{y=Math.floor((minutes1+minutes2)/800);}
+  if(y<0) y=0;
+  const yCur=y+1;
+  const ti=Math.min(tCur-1,29),ki=Math.min(kCur-1,59),ni=Math.min(nCur-1,26),yi=Math.min(yCur-1,26);
+
+  setText('ti-name',TI[ti]||'—'); setText('ti-val',`${tCur} / 30`); setText('ti-sub',`${t} elapsed · ${tHrs} hrs · ${tDays} days`); setBar('ti-bar',tCur/30);
+  setText('ka-name',KA[ki]||'—'); setText('ka-val',`${kCur} / 60`); setText('ka-sub',`${k} elapsed · ${kHrs} hrs`); setBar('ka-bar',kCur/60);
+  setText('na-name',NK[ni]||'—'); setText('na-val',`${nCur} / 27`); setText('na-sub',`${n} elapsed · ${nCur*24} hrs`); setBar('na-bar',nCur/27);
+  setText('yo-name',YG[yi]||'—'); setText('yo-val',`${yCur} / 27`); setText('yo-sub',`${y} elapsed · ${yCur*24} hrs`); setBar('yo-bar',yCur/27);
+
+  const yogaExpr=minutes2>minutes1?`(${minutes1}+${minutes2}-21600)÷800`:`(${minutes1}+${minutes2})÷800`;
+  document.getElementById('pan-trace').innerHTML=[
+    `<span class="hib">Inputs:</span>   Moon = ${d1}° ${m1}′   Sun = ${d2}° ${m2}′`,
+    `degree1  = ${d1} + ${m1}/60 = <span class="hi">${degree1.toFixed(6)}</span>`,
+    `minutes1 = ${d1}×60 + ${m1} = <span class="hi">${minutes1}</span>`,
+    `degree2  = ${d2} + ${m2}/60 = <span class="hi">${degree2.toFixed(6)}</span>`,
+    `minutes2 = ${d2}×60 + ${m2} = <span class="hi">${minutes2}</span>`,
+    `<span class="sep">────────────────────────────────────</span>`,
+    `<span class="hib">Tithi/Karana:</span>  diff = ${diffExpr} = <span class="hi">${diff.toFixed(6)}</span>`,
+    `TITHI:    ⌊${diff.toFixed(4)} / 12⌋ = <span class="hi">${t}</span> elapsed  →  current = <span class="hi">${tCur}</span>  (${TI[ti]})`,
+    `KARANA:   ⌊${diff.toFixed(4)} / 6⌋  = <span class="hi">${k}</span> elapsed  →  current = <span class="hi">${kCur}</span>  (${KA[ki]})`,
+    `<span class="sep">────────────────────────────────────</span>`,
+    `<span class="hib">Nakshatra:</span>  ${minutes1} / 800 = <span class="hig">${n}</span> elapsed  →  current = <span class="hig">${nCur}</span>  (${NK[ni]})`,
+    `<span class="hib">Yoga:</span>  ${yogaExpr} = <span class="hig">${y}</span> elapsed  →  current = <span class="hig">${yCur}</span>  (${YG[yi]})`,
+  ].map(l=>`<div>${l}</div>`).join('');
+
+  document.getElementById('nk-list').innerHTML=NK.map((nm,i)=>`<span class="badge${i===ni?' nk-on':''}">${nm}</span>`).join('');
+  document.getElementById('yg-list').innerHTML=YG.map((nm,i)=>`<span class="badge${i===yi?' yg-on':''}">${nm}</span>`).join('');
+  document.getElementById('pan-out').style.display='block';
+  addHistory('Panchanga',`☽${d1}°${m1}′ ☀${d2}°${m2}′  →  Tithi:${tCur}(${TI[ti]})  Nk:${nCur}(${NK[ni]})`);
+}
+
+// ══════════════════════════════════════════════════
+// GAMES
+// ══════════════════════════════════════════════════
+function openGame(id){
+  document.getElementById('games-select').style.display='none';
+  document.querySelectorAll('.game-container').forEach(g=>g.classList.remove('active'));
+  document.getElementById('game-'+id).classList.add('active');
+  if(id==='timeline') tlInit();
+  else if(id==='scramble') scInit();
+  else if(id==='pairs') prInit();
+  else if(id==='ttt') tttInit();
+  else if(id==='binary') bdInit();
+}
+function closeGame(){
+  document.querySelectorAll('.game-container').forEach(g=>g.classList.remove('active'));
+  document.getElementById('games-select').style.display='block';
+}
+
+// ── GAME 1: TIMELINE CHALLENGE ──────────────────
+const TL_QS=[
+  {q:"The Indus Valley Civilization reaches its peak at Mohenjo-daro and Harappa",a:"~2600 BCE",opts:["~5000 BCE","~2600 BCE","~1000 BCE","~500 BCE"]},
+  {q:"Aryabhata computes π ≈ 3.1416 and the heliocentric model in Aryabhatiya",a:"499 CE",opts:["~300 BCE","1st century CE","499 CE","800 CE"]},
+  {q:"Chandragupta Maurya founds the Maurya Empire",a:"322 BCE",opts:["600 BCE","322 BCE","200 BCE","100 CE"]},
+  {q:"Ashoka the Great converts to Buddhism after the Kalinga War",a:"261 BCE",opts:["400 BCE","261 BCE","100 BCE","50 CE"]},
+  {q:"Pingala composes the Chandashāstra, describing binary sequences",a:"~300 BCE",opts:["~700 BCE","~300 BCE","~50 BCE","100 CE"]},
+  {q:"Gupta Empire — India's Golden Age — reaches its zenith under Chandragupta II",a:"380-415 CE",opts:["100 BCE","1st century CE","380-415 CE","700 CE"]},
+  {q:"Brahmagupta writes the Brahmasphutasiddhanta, formalising zero",a:"628 CE",opts:["300 CE","628 CE","900 CE","1100 CE"]},
+  {q:"Charaka Samhita — foundational text of Ayurveda — is composed",a:"~600 BCE",opts:["~1500 BCE","~600 BCE","~100 BCE","200 CE"]},
+  {q:"Nalanda University — greatest ancient centre of learning — is established",a:"5th century CE",opts:["~200 BCE","1st century CE","5th century CE","9th century CE"]},
+  {q:"Panini compiles the Ashtadhyayi, the world's first formal grammar",a:"~4th century BCE",opts:["~8th century BCE","~4th century BCE","~1st century BCE","2nd century CE"]},
+];
+let tlState={qs:[],cur:0,score:0,best:null,done:false};
+function tlInit(){
+  tlState.qs=[...TL_QS].sort(()=>Math.random()-0.5).slice(0,10);
+  tlState.cur=0; tlState.score=0; tlState.done=false;
+  document.getElementById('tl-score').textContent='0';
+  document.getElementById('tl-status').textContent='';
+  document.getElementById('tl-status').className='game-status';
+  tlShow();
+}
+function tlShow(){
+  if(tlState.cur>=tlState.qs.length){
+    tlState.done=true;
+    if(tlState.best===null||tlState.score>tlState.best){tlState.best=tlState.score;document.getElementById('tl-best').textContent=tlState.best;}
+    document.getElementById('tl-question').textContent=`Game over! Final score: ${tlState.score} / ${tlState.qs.length}`;
+    document.getElementById('tl-opts').innerHTML='';
+    document.getElementById('tl-status').textContent='Press New Game to play again.';
+    return;
+  }
+  const q=tlState.qs[tlState.cur];
+  document.getElementById('tl-qnum').textContent=`${tlState.cur+1} / ${tlState.qs.length}`;
+  document.getElementById('tl-question').textContent=q.q;
+  document.getElementById('tl-status').textContent='';
+  const shuffled=[...q.opts].sort(()=>Math.random()-0.5);
+  document.getElementById('tl-opts').innerHTML=shuffled.map(o=>`<div class="t-opt" onclick="tlAnswer(this,'${o.replace(/'/g,"\\'")}','${q.a.replace(/'/g,"\\'")}')">${o}</div>`).join('');
+}
+function tlAnswer(el,chosen,correct){
+  if(el.classList.contains('disabled')) return;
+  document.querySelectorAll('.t-opt').forEach(o=>{o.classList.add('disabled');if(o.textContent===correct) o.classList.add('correct');});
+  const st=document.getElementById('tl-status');
+  if(chosen===correct){
+    el.classList.add('correct');
+    tlState.score++;
+    document.getElementById('tl-score').textContent=tlState.score;
+    st.textContent='✓ Correct!';st.className='game-status';
+  } else {
+    el.classList.add('wrong');
+    st.textContent=`✗ The answer was: ${correct}`;st.className='game-status fail';
+  }
+  tlState.cur++;
+  setTimeout(tlShow,1500);
+}
+
+// ── GAME 2: SANSKRIT SCRAMBLE ──────────────────
+const SC_WORDS=[
+  {word:'TAKSHASHILA',hint:'Ancient university city near modern Rawalpindi'},
+  {word:'NALANDA',hint:'Greatest Buddhist centre of learning in Bihar'},
+  {word:'CHANDRAGUPTA',hint:'Founder of the Maurya Empire'},
+  {word:'ARYABHATA',hint:'Mathematician who approximated π and described Earth\'s rotation'},
+  {word:'VIKRAMADITYA',hint:'Legendary Gupta emperor known for justice'},
+  {word:'ASHOKA',hint:'Mauryan emperor who embraced Ahimsa after Kalinga'},
+  {word:'PANCHANGA',hint:'Five-limbed Hindu almanac'},
+  {word:'BRAHMAGUPTAS',hint:'Mathematician who formalised rules for zero'},
+  {word:'PINGALA',hint:'Prosodist who invented binary sequences'},
+  {word:'VARANASI',hint:'One of the world\'s oldest continuously inhabited cities'},
+];
+let scState={words:[],cur:0,score:0,best:null,selected:[],shuffled:[]};
+function scInit(){
+  scState.words=[...SC_WORDS].sort(()=>Math.random()-0.5);
+  scState.cur=0;scState.score=0;
+  document.getElementById('sc-score').textContent='0';
+  if(scState.best!==null) document.getElementById('sc-best').textContent=scState.best;
+  scLoad();
+}
+function scLoad(){
+  if(scState.cur>=scState.words.length){
+    if(scState.best===null||scState.score>scState.best){scState.best=scState.score;document.getElementById('sc-best').textContent=scState.best;}
+    document.getElementById('sc-hint').textContent='Game complete! Press New Game.';
+    document.getElementById('sc-letters').innerHTML='';
+    document.getElementById('sc-answer').innerHTML='';
+    document.getElementById('sc-status').textContent=`Final score: ${scState.score}/${scState.words.length}`;
+    return;
+  }
+  const w=scState.words[scState.cur];
+  document.getElementById('sc-round').textContent=scState.cur+1;
+  document.getElementById('sc-hint').textContent=w.hint;
+  document.getElementById('sc-status').textContent='';
+  document.getElementById('sc-status').className='game-status';
+  scState.selected=[];
+  scState.shuffled=w.word.split('').map((c,i)=>({c,i,used:false})).sort(()=>Math.random()-0.5);
+  scRender();
+}
+function scRender(){
+  const w=scState.words[scState.cur];
+  const ansEl=document.getElementById('sc-answer');
+  ansEl.innerHTML=scState.selected.map(s=>`<div class="wscram-slot">${s.c}</div>`).join('')
+    +(scState.selected.length<w.word.length?`<div style="color:var(--text3);font-style:italic;font-size:0.8rem;padding:0.5rem">_ _ _</div>`:'');
+  const letEl=document.getElementById('sc-letters');
+  letEl.innerHTML=scState.shuffled.map((s,i)=>
+    `<div class="wscram-tile${s.used?' selected':''}" onclick="scTap(${i})" data-idx="${i}">${s.c}</div>`
+  ).join('');
+}
+function scTap(i){
+  if(scState.shuffled[i].used) return;
+  const w=scState.words[scState.cur];
+  if(scState.selected.length>=w.word.length) return;
+  scState.shuffled[i].used=true;
+  scState.selected.push({c:scState.shuffled[i].c,si:i});
+  scRender();
+}
+function scClear(){
+  scState.selected.forEach(s=>{scState.shuffled[s.si].used=false;});
+  scState.selected=[];
+  scRender();
+}
+function scCheck(){
+  const w=scState.words[scState.cur];
+  const attempt=scState.selected.map(s=>s.c).join('');
+  const st=document.getElementById('sc-status');
+  if(attempt===w.word){
+    scState.score++;
+    document.getElementById('sc-score').textContent=scState.score;
+    st.textContent='✓ Correct!';st.className='game-status';
+    scState.cur++;
+    setTimeout(scLoad,900);
+  } else {
+    st.textContent=`✗ Try again! (${attempt})`;st.className='game-status fail';
+    scClear();
+  }
+}
+
+// ── GAME 3: RAJA PAIRS ─────────────────────────
+const PR_DATA=[
+  ['Chandragupta','Maurya Empire'],['Ashoka','Dhamma Policy'],['Vikramaditya','Gupta Dynasty'],
+  ['Harsha','Vardhana Empire'],['Prithviraj','Chahamana Dynasty'],['Pulakesi II','Chalukya Empire'],
+  ['Krishnadevaraya','Vijayanagara'],['Rani Durgavati','Gond Kingdom'],
+];
+let prState={board:[],flipped:[],matched:0,moves:0,best:null,lock:false};
+function prInit(){
+  prState.moves=0;prState.matched=0;prState.flipped=[];prState.lock=false;
+  document.getElementById('pr-moves').textContent='0';
+  document.getElementById('pr-pairs').textContent='0 / 8';
+  document.getElementById('pr-status').textContent='';
+  document.getElementById('pr-status').className='game-status';
+  const all=PR_DATA.flatMap(([a,b])=>[{text:a,id:a},{text:b,id:a}]).sort(()=>Math.random()-0.5);
+  prState.board=all.map((item,i)=>({...item,idx:i,revealed:false,matched:false}));
+  const grid=document.getElementById('pr-grid');
+  grid.innerHTML=prState.board.map((c,i)=>`<div class="pair-card" data-i="${i}" onclick="prFlip(${i})">?</div>`).join('');
+}
+function prFlip(i){
+  if(prState.lock) return;
+  const c=prState.board[i];
+  if(c.revealed||c.matched) return;
+  if(prState.flipped.length>=2) return;
+  c.revealed=true;
+  prState.flipped.push(i);
+  prRenderCard(i);
+  if(prState.flipped.length===2){
+    prState.lock=true;
+    prState.moves++;
+    document.getElementById('pr-moves').textContent=prState.moves;
+    const [a,b]=prState.flipped.map(x=>prState.board[x]);
+    setTimeout(()=>{
+      if(a.id===b.id&&a.text!==b.text){
+        a.matched=b.matched=true;
+        prState.matched++;
+        document.getElementById('pr-pairs').textContent=`${prState.matched} / 8`;
+        prRenderCard(prState.flipped[0]);prRenderCard(prState.flipped[1]);
+        prState.flipped=[];prState.lock=false;
+        if(prState.matched===8){
+          if(prState.best===null||prState.moves<prState.best){prState.best=prState.moves;document.getElementById('pr-best').textContent=prState.best;}
+          const st=document.getElementById('pr-status');st.textContent=`All matched in ${prState.moves} moves! 🪷`;st.className='game-status';
+        }
+      } else {
+        a.revealed=b.revealed=false;
+        prRenderCard(prState.flipped[0]);prRenderCard(prState.flipped[1]);
+        prState.flipped=[];prState.lock=false;
+      }
+    },900);
+  }
+}
+function prRenderCard(i){
+  const c=prState.board[i];
+  const el=document.querySelector(`[data-i="${i}"]`);
+  if(!el) return;
+  el.className='pair-card'+(c.matched?' matched':c.revealed?' flipped':'');
+  el.textContent=c.revealed||c.matched?c.text:'?';
+}
+
+// ── GAME 4: BAGH CHAL (TIC TAC TOE) ──────────
+let tttBoard, tttTurn, tttScores={you:0,ai:0,draw:0}, tttOver;
+const tttWins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function tttInit(){
+  tttBoard=Array(9).fill('');tttTurn='X';tttOver=false;
+  document.getElementById('ttt-status').textContent="Your turn — you are ☯";
+  document.getElementById('ttt-status').className='game-status';
+  const b=document.getElementById('ttt-board');
+  b.innerHTML=Array(9).fill(0).map((_,i)=>`<div class="ttt-cell" onclick="tttPlay(${i})" data-i="${i}"></div>`).join('');
+}
+function tttPlay(i){
+  if(tttOver||tttBoard[i]) return;
+  tttBoard[i]='X';tttRender();
+  const w=tttCheck('X');
+  if(w){tttEnd('you');return;}
+  if(tttBoard.every(c=>c)){tttEnd('draw');return;}
+  tttTurn='O';
+  setTimeout(tttAI,400);
+}
+function tttAI(){
+  let best=-Infinity,move=0;
+  for(let i=0;i<9;i++){
+    if(!tttBoard[i]){tttBoard[i]='O';const s=tttMinimax(tttBoard,0,false);tttBoard[i]='';if(s>best){best=s;move=i;}}
+  }
+  tttBoard[move]='O';tttRender();
+  if(tttCheck('O')){tttEnd('ai');return;}
+  if(tttBoard.every(c=>c)){tttEnd('draw');return;}
+  tttTurn='X';
+  document.getElementById('ttt-status').textContent='Your turn — you are ☯';
+}
+function tttMinimax(b,depth,isMax){
+  if(tttCheckB(b,'O')) return 10-depth;
+  if(tttCheckB(b,'X')) return depth-10;
+  if(b.every(c=>c)) return 0;
+  if(isMax){let best=-Infinity;for(let i=0;i<9;i++){if(!b[i]){b[i]='O';best=Math.max(best,tttMinimax(b,depth+1,false));b[i]='';}}return best;}
+  else{let best=Infinity;for(let i=0;i<9;i++){if(!b[i]){b[i]='X';best=Math.min(best,tttMinimax(b,depth+1,true));b[i]='';}}return best;}
+}
+function tttCheckB(b,p){return tttWins.some(([a,c,d])=>b[a]===p&&b[c]===p&&b[d]===p);}
+function tttCheck(p){return tttWins.some(([a,b,c])=>tttBoard[a]===p&&tttBoard[b]===p&&tttBoard[c]===p);}
+function tttEnd(who){
+  tttOver=true;
+  const st=document.getElementById('ttt-status');
+  if(who==='you'){tttScores.you++;st.textContent='☯ You win! The tiger dominates!';st.className='game-status';}
+  else if(who==='ai'){tttScores.ai++;st.textContent='☸ AI wins! The goats prevail.';st.className='game-status fail';}
+  else{tttScores.draw++;st.textContent="Draw! The forest is balanced.";st.className='game-status';}
+  document.getElementById('ttt-you').textContent=tttScores.you;
+  document.getElementById('ttt-ai').textContent=tttScores.ai;
+  document.getElementById('ttt-draw').textContent=tttScores.draw;
+}
+function tttRender(){
+  document.querySelectorAll('.ttt-cell').forEach((el,i)=>{
+    el.textContent=tttBoard[i]==='X'?'☯':tttBoard[i]==='O'?'☸':'';
+    el.className='ttt-cell'+(tttBoard[i]?' taken':'')+(tttBoard[i]==='X'?' ttt-x':tttBoard[i]==='O'?' ttt-o':'');
+    if(!tttBoard[i]) el.setAttribute('onclick',`tttPlay(${i})`);
+    else el.removeAttribute('onclick');
+  });
+}
+
+// ── GAME 5: BINARY DRILL ──────────────────────
+let bdState={num:0,len:0,score:0,round:0,best:null};
+function bdInit(){
+  bdState.score=0;bdState.round=0;
+  document.getElementById('bd-score').textContent='0';
+  if(bdState.best!==null) document.getElementById('bd-best').textContent=bdState.best;
+  bdNext();
+}
+function bdNext(){
+  bdState.round++;
+  document.getElementById('bd-round').textContent=bdState.round;
+  document.getElementById('bd-status').textContent='';
+  document.getElementById('bd-status').className='game-status';
+  document.getElementById('bd-inp').value='';
+  const n=Math.floor(Math.random()*15)+1;
+  const len=Math.floor(Math.random()*3)+4;
+  bdState.num=n; bdState.len=len;
+  document.getElementById('bd-num').textContent=n;
+  document.getElementById('bd-length').textContent=`Length: ${len} bits`;
+}
+function bdCheck(){
+  const raw=document.getElementById('bd-inp').value.trim();
+  if(!raw){return;}
+  const tokens=raw.split(/[\s,]+/).filter(s=>s.length>0).map(Number);
+  if(tokens.some(v=>isNaN(v)||v<0||v>1)){
+    document.getElementById('bd-status').textContent='Enter only 0s and 1s.';
+    document.getElementById('bd-status').className='game-status fail';
+    return;
+  }
+  const correct=nastaArr(bdState.num,bdState.len);
+  const match=JSON.stringify(tokens)===JSON.stringify(correct);
+  const st=document.getElementById('bd-status');
+  if(match){
+    bdState.score++;
+    document.getElementById('bd-score').textContent=bdState.score;
+    st.textContent=`✓ Correct! Nasta(${bdState.num}, ${bdState.len}) = [${correct.join(' ')}]`;
+    st.className='game-status';
+    if(bdState.best===null||bdState.score>bdState.best){bdState.best=bdState.score;document.getElementById('bd-best').textContent=bdState.best;}
+    setTimeout(bdNext,1200);
+  } else {
+    st.textContent=`✗ Incorrect. Correct: [${correct.join(' ')}]`;
+    st.className='game-status fail';
+    setTimeout(bdNext,1800);
+  }
+}
+function bdSkip(){
+  const correct=nastaArr(bdState.num,bdState.len);
+  document.getElementById('bd-status').textContent=`Skipped. Answer was: [${correct.join(' ')}]`;
+  document.getElementById('bd-status').className='game-status fail';
+  setTimeout(bdNext,1400);
+}
+</script>
+</body>
+</html>
